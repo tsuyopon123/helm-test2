@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tenbin-test.fullname" . }}
+  name: tenbin-test
   labels:
-    {{- include "tenbin-test.labels" . | nindent 4 }}
+    tenbin-test
 spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      {{- include "tenbin-test.selectorLabels" . | nindent 6 }}
+  replicas: 1
+  # selector:
+  #   matchLabels:
+  #     {{- include "tenbin-test.selectorLabels" . | nindent 6 }}
   template:
-    metadata:
-    {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-      labels:
-        {{- include "tenbin-test.selectorLabels" . | nindent 8 }}
+      # labels:
+      #   {{- include "tenbin-test.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: helm-test21
+          image: "ghcr.io/tsuyopon123/tenbin/tenbin:latest"
+          imagePullPolicy: IfNotPresent
