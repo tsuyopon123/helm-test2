@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tenbin-test
-  labels:
-    tenbin-test
+  name: tenbin-deployment
 spec:
+  selector:
+    matchLabels:
+      app: tenbin
   replicas: 1
-  # selector:
-  #   matchLabels:
-  #     {{- include "tenbin-test.selectorLabels" . | nindent 6 }}
   template:
-      # labels:
-      #   {{- include "tenbin-test.selectorLabels" . | nindent 8 }}
+    metadata:
+      labels:
+        app: tenbin
     spec:
       containers:
-        - name: helm-test21
-          image: "ghcr.io/tsuyopon123/tenbin/tenbin:latest"
-          imagePullPolicy: IfNotPresent
+      - name: tenbin
+        image: ghcr.io/tsuyopon123/tenbin/tenbin:latest
+        ports:
+        - containerPort: 53
